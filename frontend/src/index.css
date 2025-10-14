@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Remove browser default password eye icon (Chrome, Edge, IE) */
+input[type="password"]::-webkit-password-toggle-button,
+input[type="password"]::-ms-reveal {
+  display: none;
+  -webkit-appearance: none;
+}

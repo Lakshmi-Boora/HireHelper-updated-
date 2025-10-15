@@ -109,16 +109,19 @@ const FeedView: React.FC = () => {
             >
               <div className="relative">
   <img
-    src={
-      task.picture
-        ? `http://localhost:2000${task.picture}`
-        : (task as any).imageUrl
-        ? (task as any).imageUrl
-        : "/Image_not_available.avif"
-    }
-    alt={task.title}
-    className="w-full h-28 object-cover"
-  />
+  src={
+    task.picture
+      ? task.picture.startsWith("http")
+        ? task.picture // Cloudinary URL
+        : `http://localhost:2000${task.picture}` // local uploads
+      : (task as any).imageUrl
+      ? (task as any).imageUrl
+      : "/Image_not_available.avif"
+  }
+  alt={task.title}
+  className="w-full h-28 object-cover"
+/>
+
 
   <div className="absolute top-2 right-2 bg-white px-1.5 py-0.5 rounded-full flex items-center">
     {isDefault && (task as any).rating ? (

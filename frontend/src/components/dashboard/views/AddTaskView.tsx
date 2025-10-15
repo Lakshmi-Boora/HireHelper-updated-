@@ -60,7 +60,7 @@ const AddTaskView: React.FC = () => {
           headers: { "Content-Type": "multipart/form-data" },
         });
 
-        uploadedUrl = uploadRes.data.filePath; // backend sends file path
+        uploadedUrl = uploadRes.data.imageUrl; // backend sends file path
       }
 
       // Create task

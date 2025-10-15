@@ -14,17 +14,27 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister, onSwitchToFor
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { login, isLoading } = useAuth();
-  const navigate = useNavigate(); // ✅ Added
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    const success = await login(email, password);
-    if (success) {
-      navigate('/'); // ✅ Navigate to Dashboard (feed page)
-    } else {
-      setError('Invalid email or password');
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigate('/'); // Navigate to dashboard or home
+      } else {
+        // Inline error
+        setError('Invalid email or password');
+        // Optional: browser alert
+        alert('Invalid email or password');
+      }
+    } catch (err: any) {
+      console.error(err);
+      const message = err?.message || 'Login failed. Please try again.';
+      setError(message);
+      alert(message);
     }
   };
 
@@ -92,14 +102,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister, onSwitchToFor
             </div>
           </div>
 
-          {/* Error */}
+          {/* Inline Error */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-xl text-sm">
               {error}
             </div>
           )}
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={isLoading}

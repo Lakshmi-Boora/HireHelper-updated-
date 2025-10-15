@@ -176,11 +176,17 @@ const TaskDetailsView: React.FC = () => {
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Task Image</h3>
                 <img
-                  src={`http://localhost:2000${task.picture}`}
-                  alt={task.title}
-                  className="w-full h-48 object-cover rounded-lg shadow"
-                  onError={e => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x200?text=No+Image'; }}
-                />
+  src={
+    task.picture
+      ? task.picture.startsWith('http')
+        ? task.picture // Cloudinary URL
+        : `http://localhost:2000${task.picture}` // local uploads
+      : 'https://via.placeholder.com/400x200?text=No+Image'
+  }
+  alt={task.title}
+  className="w-full h-48 object-cover rounded-lg shadow"
+/>
+
               </div>
             )}
           </div>

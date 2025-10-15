@@ -1,30 +1,29 @@
 import express from "express";
 import multer from "multer";
-import path from "path";
-import fs from "fs";
+import uploadImageToCloudinary from "../utils/uploadImage.js";
 
 const router = express.Router();
 
-// Absolute path to backend/uploads
-const uploadDir = path.join(path.resolve(), "backend", "uploads");
+// Temporary storage for uploaded files before sending to Cloudinary
+const upload = multer({ dest: "uploads/" });
 
-// Ensure folder exists
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+router.post("/", upload.single("picture"), async (req, res) => {
+  try {
+    const localFilePath = req.file.path;
+    const imageUrl = await uploadImageToCloudinary(localFilePath);
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
-});
+    if (!imageUrl) {
+      return res.status(500).json({ message: "Image upload failed" });
+    }
 
-const upload = multer({ storage });
-
-router.post("/", upload.single("picture"), (req, res) => {
-  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
-
-  res.json({
-    message: "File uploaded successfully",
-    filePath: `/uploads/${req.file.filename}`, // this will be served by express.static
-  });
+    return res.status(200).json({
+      message: "Image uploaded successfully",
+      imageUrl,
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    return res.status(500).json({ message: "Server error", error });
+  }
 });
 
 export default router;

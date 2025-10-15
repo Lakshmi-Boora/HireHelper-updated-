@@ -102,7 +102,7 @@ const EditTaskView: React.FC = () => {
       if (success) {
         await getMyTasks();
         alert('Task updated successfully!');
-        navigate('/my-tasks');
+        navigate('/');
       } else {
         setError('Failed to update task. Please try again.');
       }

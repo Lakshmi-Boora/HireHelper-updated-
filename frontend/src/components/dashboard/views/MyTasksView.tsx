@@ -99,10 +99,17 @@ const MyTasksView: React.FC = () => {
             >
               <div className="w-full flex-1 overflow-hidden">
                 <img
-                  src={task.picture ? `http://localhost:2000${task.picture}` : 'https://via.placeholder.com/300'}
-                  alt={task.title}
-                  className="w-full h-full object-cover"
-                />
+  src={
+    task.picture
+      ? task.picture.startsWith('http')
+        ? task.picture // Cloudinary or external URL
+        : `http://localhost:2000/${task.picture.replace(/^\/+/, '')}` // ensure leading slash
+      : 'https://via.placeholder.com/300'
+  }
+  alt={task.title}
+  className="w-full h-full object-cover"
+/>
+
               </div>
 
               <div className="p-3 flex flex-col justify-between flex-1">

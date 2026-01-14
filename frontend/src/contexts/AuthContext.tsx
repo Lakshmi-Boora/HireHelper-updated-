@@ -66,8 +66,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     last_name: apiUser.last_name,
     email: apiUser.email_id,
     name,
-    avatar: apiUser.profile_picture
-      ? `http://localhost:2000${apiUser.profile_picture}`
+      avatar: apiUser.profile_picture
+       ? `${import.meta.env.VITE_API_URL.replace("/api/v1","")}${apiUser.profile_picture}`
       : "/default-pfp.jpg",  // ✅ default if no profile picture
     profile_picture: apiUser.profile_picture ?? null,
   };

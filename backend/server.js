@@ -19,7 +19,10 @@ const app = express();
 const PORT=ENV_VARS.PORT;
 const __dirname = path.resolve();
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://internship-infosys-2025-hire-a-helper-b326.onrender.com"
+  ],
   credentials: true
 }));
 app.use("/uploads", express.static(path.join(__dirname, "backend", "uploads")));

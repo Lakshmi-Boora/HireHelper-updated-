@@ -21,7 +21,7 @@ const PORT=ENV_VARS.PORT;
 const __dirname = path.resolve();
 app.use(cors({
   origin: [
-    "https://hirehelper-updated-1.onrender.com",
+    "https://hirehelper-updated-wvm5.onrender.com",
     "http://localhost:5173"
   ],
   credentials: true

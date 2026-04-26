@@ -9,8 +9,8 @@ export const generateTokenAndSetCookie=(user,res)=>{
     res.cookie('jwt-hirehelper',token,{
         expires:expiresAtMidnight,
         httpOnly:true, 
-        sameSite:"strict",
-        secure:ENV_VARS.NODE_ENV!=='development'
+        sameSite:"none",
+        secure:true
     });
     return token;
 }

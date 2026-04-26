@@ -9,6 +9,9 @@ const upload = multer({ dest: "uploads/" });
 
 router.post("/", upload.single("picture"), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file provided or invalid upload format." });
+    }
     const localFilePath = req.file.path;
     const imageUrl = await uploadImageToCloudinary(localFilePath);
 

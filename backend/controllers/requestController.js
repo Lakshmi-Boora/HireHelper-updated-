@@ -108,11 +108,6 @@ export const getRequestsForTask = async (req, res) => {
 };
 
 export const acceptRequest = async (req, res) => {
-  // Debug: log raw findById result before populating
-  const rawRequest = await Request.findById(req.params.id);
-  console.log('Raw findById result:', rawRequest);
-  const request = await Request.findById(req.params.id).populate("task_id");
-  console.log('Populated request:', request);
   console.log('Accept request called with ID:', req.params.id);
   try {
     const request = await Request.findById(req.params.id).populate("task_id");
@@ -179,6 +174,7 @@ export const acceptRequest = async (req, res) => {
 export const rejectRequest = async (req, res) => {
   try {
     const request = await Request.findById(req.params.id).populate("task_id");
+    if (!request) return res.status(404).json({ success: false, message: "Request not found" });
     request.status = "rejected";
     await request.save();
 

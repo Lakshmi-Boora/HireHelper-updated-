@@ -28,10 +28,10 @@ export const registerUser=async(req, res)=>{
 
     const transporter=nodemailer.createTransport({
       service:"gmail",
-      auth: {user: process.env.EMAIL, pass: process.env.EMAIL_PASS}
+      auth: {user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS}
     });
     await transporter.sendMail({
-      from:process.env.EMAIL,
+      from:process.env.EMAIL_USER,
       to:email_id,
       subject:"HireHelper - Verify your account",
       text:`Your OTP is ${otp}`
@@ -73,10 +73,10 @@ export const resendOtp=async(req, res)=>{
     await user.save();
     const transporter=nodemailer.createTransport({
       service:"gmail",
-      auth: {user: process.env.EMAIL, pass: process.env.EMAIL_PASS}
+      auth: {user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS}
     });
     await transporter.sendMail({
-      from: process.env.EMAIL,
+      from: process.env.EMAIL_USER,
       to: email_id,
       subject: "HireHelper - Resend OTP",
       text: `Your new OTP is ${otp}`
@@ -115,10 +115,10 @@ export const forgotPassword=async(req, res)=>{
     await user.save();
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: { user: process.env.EMAIL, pass: process.env.EMAIL_PASS }
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
     });
     await transporter.sendMail({
-      from: process.env.EMAIL,
+      from: process.env.EMAIL_USER,
       to: email_id,
       subject: "HireHelper - Password Reset OTP",
       text: `Your OTP for resetting password is ${otp}`

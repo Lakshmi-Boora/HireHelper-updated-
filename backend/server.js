@@ -13,6 +13,7 @@ import requestRoutes from "./routes/requestRoutes.js";
 import acceptedTaskRoutes from "./routes/acceptedTaskRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import settingsRoutes from "./routes/settingsRoutes.js";
+import aiRoute from "./routes/aiRoute.js";
 
 dotenv.config();
 const app = express();
@@ -40,6 +41,7 @@ app.use("/api/v1/requests", requestRoutes);
 app.use("/api/v1/accepted", acceptedTaskRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
 app.use("/api/v1/settings", settingsRoutes);
+app.use("/api/v1/ai-query", aiRoute);
 
 //console.log(ENV_VARS.MONGO_URI);
 app.listen(PORT,()=>{

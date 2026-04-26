@@ -21,8 +21,8 @@ const PORT=ENV_VARS.PORT;
 const __dirname = path.resolve();
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://internship-infosys-2025-hire-a-helper-b326.onrender.com"
+    "https://hirehelper-updated-1.onrender.com",
+    "http://localhost:5173"
   ],
   credentials: true
 }));
